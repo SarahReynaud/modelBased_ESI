@@ -1,0 +1,3 @@
+_target_: contrib.eeg.models.RearrangedConvLstmGradModel
+dim_in: ${dataset.n_sources}
+dim_hidden: 48

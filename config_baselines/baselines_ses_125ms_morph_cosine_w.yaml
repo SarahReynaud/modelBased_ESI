@@ -1,0 +1,49 @@
+## BASELINES for direct inversion trained on the whole brain
+1dcnn: 
+  model: 
+  # _target_: contrib.eeg.models_directinv.CNN1Dpl
+    channels: [90, 2048, 1283, ]
+    kernel_size: 5
+    bias: False
+    optimizer: 
+      _target_: torch.optim.Adam 
+      _partial_: true
+      lr : 0.001  
+    criterion:
+      _target_: nn.MSELoss
+  # path: /home/reynaudsarah/Documents/Results/_dl_ses_fsaverage_st1020_ico3_/trained_models/no_dropout
+  path: ./trained_baselines/baselines_ses_125ms_morph_cosine_W/
+  name: ses_125ms_morph_fsaverage_1dcnn.ckpt
+
+lstm:
+  model:
+  # _target_: contrib.eeg.models_directinv.HeckerLSTMpl 
+    n_electrodes: 90
+    hidden_size: 85
+    n_sources: 1283
+    bias: False 
+    optimizer: 
+      _target_: torch.optim.Adam 
+      _partial_: true
+      lr : 0.001  
+    criterion:
+      _target_: nn.MSELoss 
+    mc_dropout_rate: 0
+  path: ./trained_baselines/baselines_ses_125ms_morph_cosine_W/
+  name: ses_125ms_morph_fsaverage_lstm.ckpt
+
+# deepsif: 
+#   model: 
+#   # _target_: contrib.eeg.models_directinv.DeepSIFpl
+#     num_sensor: 90
+#     num_source: 1284
+#     temporal_input_size: 500
+#     optimizer: 
+#       _target_: torch.optim.Adam
+#       _partial_: true 
+#       lr: 0.001 
+#     criterion: 
+#       _target_: torch.nn.MSELoss()
+#     rnn_layer: 1
+#   path: ./trained_models/baselines_ses_125ms_cosine/
+#   name: simu_sereega_srcspace_ico3_model_deepsif_trainset_8000_epochs_500_loss_cosine_norm_linear_bis.pt

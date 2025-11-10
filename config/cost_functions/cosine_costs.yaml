@@ -1,0 +1,6 @@
+prior_cost_fn: 
+  _target_: contrib.eeg.models.CosineReshape
+obs_cost_fn:
+  _target_: contrib.eeg.models.CosineReshape
+train_cost_fn: 
+  _target_: contrib.eeg.models.CosineReshape

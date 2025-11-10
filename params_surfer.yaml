@@ -1,0 +1,23 @@
+subject: fsaverage
+hemi: lh
+views: lat
+surface: white
+time_viewer: False
+alpha: 0.8
+smoothing_steps: 30
+background: white
+colormap: Reds
+clim: 
+ kind: value
+ lims: [0, 0.01, 1]
+add_data_kwargs: 
+ colorbar_kwargs:
+  n_labels: 5
+  label_font_size: 20
+  width: 0.05
+  height: 0.8
+  vertical: True
+  position_x: 0.0
+  position_y: 0.0
+brain_kwargs: 
+ offscreen: False

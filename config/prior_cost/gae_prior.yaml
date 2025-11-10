@@ -1,0 +1,4 @@
+_target_: contrib.eeg.graphs.GAEPrior
+gae_params: ${gae_params}
+edge_index: ${edge_index}
+cost_fn: ${cost_functions.prior_cost_fn}

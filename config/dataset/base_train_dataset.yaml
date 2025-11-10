@@ -1,0 +1,18 @@
+# Shape of the data:
+n_times: 64
+n_sources: 1284 
+n_electrodes: 90
+
+# head model parameters
+subject_name: 'fsaverage'
+orientation: 'constrained'
+electrode_montage: 'standard_1020'
+source_sampling: 'ico3'
+
+# simulation
+simu_name: 'ses_125ms'
+snr_db: 5
+noise_type: {"white":1.}
+replace_root: True
+
+to_load: 10000

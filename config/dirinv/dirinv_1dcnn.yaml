@@ -1,0 +1,11 @@
+_target_: contrib.eeg.models_directinv.CNN1Dpl
+channels: 
+  - ${dataset.n_electrodes}
+  - 2048
+  - ${dataset.n_sources}
+kernel_size: 5
+bias: False
+optimizer: ${optimizer}
+lr: 0.001
+criterion: 
+  _target_: contrib.eeg.model_short.Cosine

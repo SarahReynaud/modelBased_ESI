@@ -1,0 +1,5 @@
+_target_: contrib.eeg.graphs.GConvLSTMGradModel
+in_channels: ${dataset.n_times}
+out_channels: ${dataset.n_times}
+dim_hidden: 256
+edge_index: ${edge_index}

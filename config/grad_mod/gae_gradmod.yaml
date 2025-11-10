@@ -1,0 +1,6 @@
+_target_: contrib.eeg.graphs.GraphGradModel
+dim_in: ${dataset.n_times}
+dim_hidden: ${dataset.n_times}
+edge_index: ${edge_index}
+pool_ratios: 0.5
+depth: 4

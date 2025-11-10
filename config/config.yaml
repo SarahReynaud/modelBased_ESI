@@ -1,0 +1,84 @@
+defaults: 
+  - _self_
+  - dataset: base_train_dataset
+  - cost_functions: cosine_costs
+  - prior_cost: base_convae_prior
+  - grad_mod: clstm_gradmod
+  - optimizer: base_optim
+  - trainer: base_trainer
+
+datafolder: '/home/reynaudsarah/Documents/Data/simulation'
+
+suffix: "default"
+hydra:
+  run:
+    dir: outputs/${now:%Y-%m-%d}/${now:%H-%M-%S}_${suffix}
+
+## DATAMODULE
+datamodule: 
+  _target_: contrib.eeg.data.EsiDatamodule
+  dataset_kw: 
+    datafolder: ${datafolder}
+    simu_name: ${dataset.simu_name}
+    subject_name: ${dataset.subject_name}
+    source_sampling: ${dataset.source_sampling}
+    electrode_montage: ${dataset.electrode_montage}
+    orientation: ${dataset.orientation}
+    to_load: ${dataset.to_load}
+    snr_db: 5
+    noise_type: {"white":1.}
+    scaler_type: 'linear_bis'
+    replace_root: True
+  subset_name: "left_back"
+  dl_kw: 
+    batch_size: 16
+
+## FORWARD
+fwd: 
+  _target_: contrib.eeg.utils_eeg.load_fwd
+  datafolder: ${datafolder}
+  head_model_dict: 
+    subject_name: ${dataset.subject_name}
+    orientation: ${dataset.orientation}
+    electrode_montage: ${dataset.electrode_montage}
+    source_sampling: ${dataset.source_sampling}
+  fwd_name: 'fwd_${dataset.source_sampling}-fwd.fif'
+  scaler_type: none #${datamodule.dataset_kw.scaler_type}
+
+## mne-info for initialization with mne solution
+mne_info:
+  _target_: contrib.eeg.utils_eeg.load_mne_info
+  electrode_montage: ${dataset.electrode_montage}
+  sampling_freq: 512
+
+#### MODEL ###
+# obs cost: does not change.
+obs_cost: 
+  _target_: contrib.eeg.models.EsiBaseObsCost
+  forward_obj: ${fwd}
+  cost_fn: ${cost_functions.obs_cost_fn}
+# prior cost -> in default
+# grad mod -> in default 
+
+
+## lightning module: 
+litmodel: 
+  _target_: contrib.eeg.models.ESILitModule
+  solver: 
+    _target_: contrib.eeg.models.EsiGradSolver
+    fwd: ${fwd}
+    n_step: 10
+    lr_grad: 1e-10
+    prior_cost: ${prior_cost}
+    obs_cost: ${obs_cost}
+    grad_mod: ${grad_mod}
+    init_type: MNE
+    mne_info: ${mne_info}
+    reg_param: 
+      prior: 1
+  opt_fn: ${optimizer}
+  loss_fn: ${cost_functions.train_cost_fn}
+  loss_ponde: 
+    gt: 1
+    prior: 0.02
+  

@@ -1,0 +1,6 @@
+prior_cost_fn: 
+  _target_: torch.nn.MSELoss
+obs_cost_fn:
+  _target_: torch.nn.MSELoss
+train_cost_fn: 
+  _target_: torch.nn.MSELoss

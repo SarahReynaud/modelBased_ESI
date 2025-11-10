@@ -1,0 +1,4 @@
+_target_: contrib.eeg.models.optim_adam_gradphi
+_partial_: true
+lr: 5e-5
+lr_phi_frac: 2
