@@ -1,5 +1,6 @@
-update: 2025/10/15
-Code for model-based EEG source imaging following the work of Fablet et al. with codes in the following github: https://github.com/CIA-Oceanix/4dvarnet-starter
+Update: 2025/10/15
+Code for model-based EEG source imaging, based on the work of Fablet et al. with codes in the following github: https://github.com/CIA-Oceanix/4dvarnet-starter
+
 
 # Structure
 - `src`: folder with original source code for 4DVarNet approach
@@ -15,6 +16,7 @@ If multirun is used the results are saved in `multirun` in a subfolder build wit
 
 
 # Data
+Data simulation codes can be found in the repo: https://github.com/SarahReynaud/stESI_pub under the 'simu_sereega' folder.
 For SEREEGA data: different way to create the dataset
 - EsiDataset -> base dataset using TrainingItem as output for getitem
 - EsiDatasetNoiseFixed -> Load EEG data simulated with a fixed noise (instead of adding noise when loading data)
